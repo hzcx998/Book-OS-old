@@ -1,0 +1,44 @@
+#####
+#Makefile for gui
+#File: gui/Makefile
+#Contains: gui makefile
+#Auther: Hu Zicheng
+#Time: 2019/1/24
+#Copyright:	(C) 2018-2019 by BookOS developers. All rights reserved.
+#E-mail:		2323168280@qq.com
+#####
+
+
+#The tools name
+NASM 		= nasm
+CC			= gcc
+
+INCLUDE_PATH = ../../include/
+
+#flags
+C_FLAGS	= -I $(INCLUDE_PATH) -c -fno-builtin -Wall -Wunused -m32 -fno-stack-protector
+
+OBJS =  basic.o\
+		graphic.o\
+		font.o\
+		ft_simsun.o\
+		ft_standard.o\
+		image.o\
+		bmp.o\
+		jpeg.o\
+		
+#First read here
+.PHONY: all
+
+all: compile
+
+#Compile files
+compile: $(OBJS)
+	
+#Clean temporary files
+clean:
+	-rm *.o
+	
+%.o: %.c
+	$(CC) $(C_FLAGS) -o $@ $<
+	
