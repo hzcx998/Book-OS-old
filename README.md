@@ -10,12 +10,12 @@ ScreenShot:
 ![image](https://github.com/huzichengdevelop/BookOSv0.3/blob/master/screenshot/run.png)  
 
 
-How to run BookOS in linux(ubuntu linuxmint...):
-    1.You need setup some essential packages:
-    sudo apt-get install gcc make build-essential
-    sudo apt-get install qemu qemu-user-static
-    sudo apt-get install nasm vgabios bochs bochs-x bximage
-    2.Changing your current dictionary to src and make:
-	cd $workdir/src
-	make
-    3.Have fun.
+How to run BookOS in linux(ubuntu linuxmint...):  
+    1.You need setup some essential packages:  
+    sudo apt-get install gcc make build-essential  
+    sudo apt-get install qemu qemu-user-static  
+    sudo apt-get install nasm vgabios bochs bochs-x bximage  
+    2.Changing your current dictionary to src and make:  
+	cd $workdir/src  
+	make  
+    3.Have fun.  
