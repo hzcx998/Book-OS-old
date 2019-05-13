@@ -6,8 +6,8 @@ Update:
     v0.2 2019/2/21  
     v0.1 2019/1/7
 ScreenShot:  
-![image](https://github.com/huzichengdevelop/BookOSv0.3/blob/master/screenshot/logo.png)  
-![image](https://github.com/huzichengdevelop/BookOSv0.3/blob/master/screenshot/run.png)  
+![image](https://github.com/huzichengdevelop/Book-OS/blob/master/screenshot/start.png)  
+![image](https://github.com/huzichengdevelop/Book-OS/blob/master/screenshot/desktop.png)  
 
 
 How to run BookOS in linux(ubuntu linuxmint...):  
