@@ -8,22 +8,9 @@ book OS explorer BOEX 核心
 
 #define BOEX_NAME "boex"
 
-#define PATH_NAME_LEN 256
-
-#define PATH_BAR_WIDTH 400
-#define PATH_BAR_HEIGHT 20
-
-
-typedef struct path_bar_s
-{
-    int x, y;
-    int width, height;
-    uint32_t bcolor, fcolor;
-    char path[PATH_NAME_LEN];
-}path_bar_t;
-
-void init_path_bar();
-void path_bar_refresh();
+#define BACK_COLOR ARGB(255,240,240,240)
+#define MIDDLE_COLOR ARGB(255,190,190,190)
+#define FRONT_COLOR ARGB(255,0,0,0)
 
 #define WIN_WIDTH 480
 #define WIN_HEIGHT 360
@@ -39,7 +26,19 @@ struct window_s
 }window;
 
 int init_window(int width, int height);
+void init_button();
+void init_status_bar();
 
-void init_path_button();
+void mouse_down_even_backward();
+void mouse_up_even_backward();
+
+void mouse_down_even_forward();
+void mouse_up_even_forward();
+
+void mouse_down_even_setting();
+void mouse_up_even_setting();
+
+void mouse_down_even_view();
+void mouse_up_even_view();
 
 #endif  //_BOEX_H
