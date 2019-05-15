@@ -4,6 +4,7 @@ extern "C" {
 }
 #include <new>
 #include <vector>
+#include <string>
 using namespace std;
 int main(int argc, char *argv0[]) {
 	printf("test\n");
