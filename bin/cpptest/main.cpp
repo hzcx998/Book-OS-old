@@ -2,6 +2,7 @@ extern "C" {
 	#include <stdio.h>
 	#include <stdlib.h>
 }
+#include <new>
 #include <vector>
 using namespace std;
 int main(int argc, char *argv0[]) {

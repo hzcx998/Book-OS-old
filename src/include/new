@@ -1,0 +1,9 @@
+#ifndef CPP_NEW
+#define CPP_NEW
+extern "C" {
+    #include <stdlib.h>
+}
+void* operator new(unsigned int size) {
+    return malloc(size);
+}
+#endif
