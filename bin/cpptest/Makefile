@@ -33,10 +33,8 @@ C_FLAGS	= -I $(INCLUDE_DIR) -c -fno-builtin -Wall -Wunused -m32 -fno-stack-prote
 LDFLAGS		= -m elf_i386 -e _start -Ttext 0x80000000
 
 OBJS =  _start.o \
-		main.o \
-		gui.o \
-		cmd.o
-
+		main.o 
+		
 LD_OBJS = $(LIB_DIR)printf.o\
 		$(LIB_DIR)malloc.o\
 		$(LIB_DIR)free.o\
@@ -106,4 +104,6 @@ clean:
 	$(NASM) $(ASM_FLAGS) -o $@ $<
 	
 %.o: %.c
+	$(CC) $(C_FLAGS) -o $@ $<
+%.o: %.cpp
 	$(CC) $(C_FLAGS) -o $@ $<
