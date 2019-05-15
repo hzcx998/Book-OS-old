@@ -59,3 +59,14 @@ void button_draw(button_t *button)
 	gui_draw(button->x, button->y, button->width, button->height);
 
 }
+
+void button_update(button_t *button, int mousex, int mousey, int status)
+{
+	//判断鼠标位置
+	if (button->x <= mousex && mousex < button->x + button->width && \
+		button->y <= mousey && mousey < button->y + button->height ) 
+	{
+
+	}
+
+}
