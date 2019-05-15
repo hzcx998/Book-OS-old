@@ -23,9 +23,9 @@ E-mail:		2323168280@qq.com
 
 #include <graphic.h>
 
-#define WRITE_DISK 0
+#define WRITE_DISK 1
 
-#define WRITE_ID 2
+#define WRITE_ID 6
 
 #if WRITE_ID == 1
 	#define WRITE_NAME "C:/test"
@@ -42,7 +42,11 @@ E-mail:		2323168280@qq.com
 #elif WRITE_ID == 5
 	#define WRITE_NAME "c:/test"
 	#define FILE_SECTORS 20
+#elif WRITE_ID == 6
+	#define WRITE_NAME "c:/cpptest"
+	#define FILE_SECTORS 30
 #endif
+
 
 #define FILE_PHY_ADDR 0x42000
 

@@ -1,0 +1,61 @@
+
+#ifndef RVECTOR
+#define RVECTOR
+extern "C"{
+    #include <stdlib.h>
+}
+namespace std{
+template<typename T>
+struct vectorNode {
+    T data;
+    vectorNode<T>* next;
+    vectorNode<T>* last;
+};
+
+template<typename T>
+class vector {
+private:
+    vectorNode<T>* first;
+    vectorNode<T>* last;
+    unsigned long long size = 0;
+public:
+    bool empty() {
+        return size == 0;
+    }
+    void push_back(T data) {
+        if(first == nullptr) {
+            first = (vectorNode<T>*)malloc(sizeof(vectorNode<T>));
+            first->data = data;
+            last = first;
+            last->last = first;
+            size ++;
+            return;
+        }
+        vectorNode<T>* temp = (vectorNode<T>*)malloc(sizeof(vectorNode<T>));
+        temp->last = last;
+        temp->data = data;
+        last->next = temp;
+        last = temp;
+        size ++;
+    }
+    T pop_back() {
+        if (last == nullptr) {
+            return T();
+        }
+        T data = last->data;
+        if (size == 1) {
+            
+            free(last);
+            first = nullptr;
+            last = nullptr;
+            size --;
+            return data;
+        }
+        last = last->last;
+        free(last->next);
+        size --;
+        return data;
+    }
+};
+}
+#endif
