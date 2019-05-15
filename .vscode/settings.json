@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "graphic.h": "c",
+        "boex.h": "c",
+        "button.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}

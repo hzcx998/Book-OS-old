@@ -33,7 +33,8 @@ C_FLAGS	= -I $(INCLUDE_DIR) -c -fno-builtin -Wall -Wunused
 LDFLAGS		= -e _start -Ttext 0x80000000
 
 OBJS =  _start.o \
-		main.o
+		main.o \
+		button.o
 
 LD_OBJS = $(LIB_DIR)printf.o\
 		$(LIB_DIR)malloc.o\

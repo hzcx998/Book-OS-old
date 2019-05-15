@@ -1,39 +1,45 @@
-#ifndef _BOSH_H
-#define _BOSH_H
+#ifndef _BOEX_H
+#define _BOEX_H
 
 /*
-BOSHELL 核心
+book OS explorer BOEX 核心
 */
 
 
-#define BOSH_NAME "bosh"
+#define BOEX_NAME "boex"
+
+#define PATH_NAME_LEN 256
+
+#define PATH_BAR_WIDTH 400
+#define PATH_BAR_HEIGHT 20
 
 
-#define CMD_LINE_LEN 128
-#define MAX_ARG_NR 16
+typedef struct path_bar_s
+{
+    int x, y;
+    int width, height;
+    uint32_t bcolor, fcolor;
+    char path[PATH_NAME_LEN];
+}path_bar_t;
 
-#define PIPE_BUF_LEN 256
+void init_path_bar();
+void path_bar_refresh();
 
-extern int pipe_id;
+#define WIN_WIDTH 480
+#define WIN_HEIGHT 360
 
+/*
+用一个窗口结构体保存所有窗体信息
+*/
+struct window_s
+{
+	int width, height;	//窗口的宽高
+	uint32_t bcolor;	//背景颜色
+	uint32_t fcolor;	//前景颜色
+}window;
 
-//func
-void print_prompt();
-int cmd_parse(char * cmd_str, char **argv, char token);
-int read_key(char *start, char *buf, int count);
-void readline( char *buf, uint32_t count);
+int init_window(int width, int height);
 
-void wash_path(char *old_abs_path, char * new_abs_path);
-void make_clear_abs_path(char *path, char *final_path);
-char* path_parse(char* pathname, char* name_store);
-void make_abs_path(const char *path, char *final_path);
-void make_path(const char *old_path, char *final_path);
+void init_path_button();
 
-void ls(char *pathname, int detail);
-
-int wait(int *status);
-void receive_child_message();
-
-void force_exit_check();
-
-#endif  //_BOSH_H
+#endif  //_BOEX_H
