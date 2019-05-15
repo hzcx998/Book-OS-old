@@ -27,9 +27,9 @@ struct console
 extern struct console console;
 
 /*显示字符的函数指针*/
-void (*display_char_func)(char ch);
+/*void (*display_char_func)(char ch);
 void (*sys_clean_screen)();
-
+*/
 
 void init_console();
 
