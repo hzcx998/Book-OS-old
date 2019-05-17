@@ -1,4 +1,3 @@
-
 #ifndef RVECTOR
 #define RVECTOR
 extern "C"{
@@ -19,6 +18,21 @@ private:
     vectorNode<T>* last;
     unsigned long long size = 0;
 public:
+    T operator [](unsigned long long index) {
+        //判断是从后面接近近，还是前面近
+        if (index > size/2) {   //从后面接近
+            vectorNode<T>* ptr = last;
+            for(int i = 0;i < size - index;i ++) {
+                ptr = ptr->last;
+            }
+            return ptr->data;
+        }
+        vectorNode<T>* ptr = next;
+        for(int i = 0;i < index;i ++) {
+            ptr = ptr->next;
+        }
+        return ptr->data;
+    }
     bool empty() {
         return size == 0;
     }
