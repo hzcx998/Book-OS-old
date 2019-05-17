@@ -8,13 +8,15 @@ extern "C"{
 #include <string.h>
 }
 using namespace std;
-  void * __gxx_personality_v0 = 0; 
- void * _Unwind_Resume = 0; 
+// Magic 魔法 只能这么干，不然会
+void * __gxx_personality_v0 = 0; 
+void * _Unwind_Resume = 0; 
 class string
 {
 public:
     friend ostream& operator<<(ostream &os, string &str) {
         os << str.c_str();
+        return os;
     }
     string(const char* str = "")
         :_str(new char[strlen(str) + 1])

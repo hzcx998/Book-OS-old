@@ -19,11 +19,11 @@ public:
         printf("%llu",v);
         return *this;
     }
-    const ostream& operator << (char*str)const {
+    const ostream& operator << (char* str)const {
         printf("%s",str);
         return *this;
     }
-    const ostream& operator << (const char*str)const {
+    const ostream& operator << (const char* str)const {
         printf("%s",str);
         return *this;
     }
