@@ -87,15 +87,17 @@ extern struct memory_manage *memory_manage;
 */
 void init_memory_manage(void );	//初始化内存管理
 
-struct memory_block *get_memory_block(void *address);	//通过地址获得对应的内存块
+struct memory_block *get_memory_block(struct memory_manage *manager, void *address);	//通过地址获得对应的内存块
 /*
 for syscall
 */
 void *kernel_malloc(uint32_t size);	//内核的分配
 int kernel_free(void *address);		//内核的释放
+void *kernel_realloc(void *mem_address, unsigned int newsize);
 
 void *user_malloc(uint32_t size);
 int user_free(void *address);
+void *user_realloc(void *mem_address, unsigned int newsize);
 
 void sys_get_memory(int *size, int *free);
 

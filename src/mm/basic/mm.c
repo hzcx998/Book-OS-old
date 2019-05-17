@@ -243,6 +243,78 @@ int kernel_free(void *address)
 	
 	return -1;	//ʧ��
 }
+struct memory_block *get_memory_block(struct memory_manage *manager, void *address)
+{
+	int i;
+	for(i = 0; i < MEMORY_BLOCKS; i++){
+		if(manager->free_blocks[i].address == (uint32_t)address && \
+			manager->free_blocks[i].flags == MEMORY_BLOCK_USING){	//如果地址相等并且还是使用中的
+
+			return &manager->free_blocks[i];
+		}
+	}
+	return NULL;
+}
+
+void *kernel_realloc(void *mem_address, unsigned int newsize)
+{
+	//如果地址是NULL，就相当于malloc
+	if (mem_address == NULL) {
+		//printk("addr is NULL\n");
+		return kernel_malloc(newsize);
+	}
+
+	//如果大小是0，就相当于free
+	if (newsize == 0) {
+		//printk("size is 0\n");
+		kernel_free(mem_address);
+		return NULL;
+	}
+
+	struct memory_block *mem_block;
+
+	mem_block = get_memory_block(memory_manage, mem_address);
+
+	//如果没有找到对应的内存块
+	if (mem_block == NULL) {
+		//printk("realloc invalid pointer\n");
+		return NULL;
+	}
+
+	//如果新的大小和原来的一样发或者小
+	if (newsize <= mem_block->size ) {
+		//设定新的大小
+		mem_block->size = newsize;
+
+		//让数据丢失
+		//printk("size <= old size.\n");
+		//返回原来的地址
+		return (void *)mem_block->address;
+	}
+
+	//新的大小比原来的大
+
+	/*
+	mem_adrr 所在内存是否有newsize的连续空间检测，由于算法原因，我们默认就没有
+	*/
+
+	//分配一个对应大小的内存
+	void *address = kernel_malloc(newsize);
+	if (address == NULL) {
+		//分配失败
+		return NULL;
+	}
+
+	//把旧空间的数据拷贝到新空间
+	memcpy(address, (void *)mem_block->address, mem_block->size);
+
+	//释放掉旧的空间
+	kernel_free((void *)mem_block->address);
+
+	//返回新的地址
+	return address;
+}
+
 
 void *user_malloc(uint32_t size)
 {
@@ -365,5 +437,68 @@ int user_free(void *address)
 	//printk("not found that address %x\n", address);
 	return -1;	//ʧ��
 }
+
+void *user_realloc(void *mem_address, unsigned int newsize)
+{
+	struct thread *thread = thread_current();
+
+	//如果地址是NULL，就相当于malloc
+	if (mem_address == NULL) {
+		//printk("addr is NULL\n");
+		return user_malloc(newsize);
+	}
+
+	//如果大小是0，就相当于free
+	if (newsize == 0) {
+		//printk("size is 0\n");
+		user_free(mem_address);
+		return NULL;
+	}
+
+	struct memory_block *mem_block;
+
+	mem_block = get_memory_block(thread->memory_manager, mem_address);
+
+	//如果没有找到对应的内存块
+	if (mem_block == NULL) {
+		//printk("realloc invalid pointer\n");
+		return NULL;
+	}
+
+	//如果新的大小和原来的一样发或者小
+	if (newsize <= mem_block->size ) {
+		//设定新的大小
+		mem_block->size = newsize;
+
+		//让数据丢失
+		//printk("size <= old size.\n");
+		//返回原来的地址
+		return (void *)mem_block->address;
+	}
+
+	//新的大小比原来的大
+
+	/*
+	mem_adrr 所在内存是否有newsize的连续空间检测，由于算法原因，我们默认就没有
+	*/
+
+	//分配一个对应大小的内存
+	void *address = user_malloc(newsize);
+	if (address == NULL) {
+		//分配失败
+		return NULL;
+	}
+
+	//把旧空间的数据拷贝到新空间
+	memcpy(address, (void *)mem_block->address, mem_block->size);
+
+	//释放掉旧的空间
+	user_free((void *)mem_block->address);
+
+	//返回新的地址
+	return address;
+}
+
+
 
 #endif //_CONFIG_GUI_BASIC_

@@ -25,8 +25,8 @@ sys_call_t sys_call_table[MAX_SYS_CALLS];
 void init_syscall()
 {
 	sys_call_table[_NR_WRITE] = sys_write_str;
-	sys_call_table[_NR_MALLOC] = user_malloc;
-	sys_call_table[_NR_FREE] = user_free;
+	sys_call_table[_NR_MALLOC] = mm.usr_malloc;
+	sys_call_table[_NR_FREE] = mm.usr_free;
 	sys_call_table[_NR_EXIT] = sys_exit;
 	sys_call_table[_NR_GETCHAR] = sys_get_key;
 	sys_call_table[_NR_PUTCHAR] = sys_writ_char;
@@ -120,5 +120,9 @@ void init_syscall()
 	sys_call_table[_NR_WAIT_CHILD_EXIT] = sys_wait_child_exit;
 
 	sys_call_table[_NR_THREAD_KILL] = sys_thread_kill;
+
+	sys_call_table[_NR_MM_REALLOC] = mm.usr_realloc;
+
+	
 
 }

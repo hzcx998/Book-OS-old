@@ -104,6 +104,9 @@
 
 #define _NR_THREAD_KILL		84
 
+#define _NR_MM_REALLOC		85
+
+
 struct thread *thread_connect();
 struct thread *thread_getinfo(struct thread *ptr);
 

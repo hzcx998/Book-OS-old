@@ -28,6 +28,7 @@ struct window_s
 int init_window(int width, int height);
 void init_button();
 void init_status_bar();
+void init_scroll_bar();
 
 void mouse_down_even_backward();
 void mouse_up_even_backward();

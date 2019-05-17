@@ -6,6 +6,8 @@
 #include "button.h"
 #include "status_bar.h"
 #include "path_bar.h"
+#include "frame.h"
+#include "scroll_bar.h"
 
 path_bar_t path_bar;
 
@@ -14,6 +16,10 @@ button_t button_forward, button_backward;	//目录前进和后退按钮
 button_t button_setting, button_view;	//工具栏和视图方式
 
 status_bar_t status_bar;
+
+scroll_bar_t vscroll_bar, hscroll_bar;
+
+
 
 int main(int argc, char *argv0[])
 {
@@ -27,6 +33,7 @@ int main(int argc, char *argv0[])
 	init_path_bar();
 	init_button();
 	init_status_bar();
+	init_scroll_bar();
 
 
 	int mx, my;
@@ -51,7 +58,10 @@ int main(int argc, char *argv0[])
 			button_update(&button_forward, mx, my, status);
 			button_update(&button_setting, mx, my, status);
 			button_update(&button_view, mx, my, status);
-			
+
+			//滚动栏更新
+			scroll_bar_update(&vscroll_bar, mx, my, status);
+			scroll_bar_update(&hscroll_bar, mx, my, status);
 		}
 		if (!gui_mouse_click(&mouse_key, &status, &mx, &my)) {	
 
@@ -60,6 +70,10 @@ int main(int argc, char *argv0[])
 			button_update(&button_forward, mx, my, status);
 			button_update(&button_setting, mx, my, status);
 			button_update(&button_view, mx, my, status);
+
+			//滚动栏更新
+			scroll_bar_update(&vscroll_bar, mx, my, status);
+			scroll_bar_update(&hscroll_bar, mx, my, status);
 		}
 		
 		mouse_key = 0;
@@ -156,6 +170,24 @@ void init_status_bar()
 
 	status_bar_set_text(&status_bar, "init done");
 	status_bar_draw(&status_bar);
+	
+}
+
+void init_scroll_bar()
+{
+	scroll_bar_init(&vscroll_bar, window.width-SCROLL_BAR_THICKNESS_DEFAULT, BUTTON_DEFAULT_HEIGHT, window.height-BUTTON_DEFAULT_HEIGHT*2, SCROLL_BAR_VSCROLL);
+	scroll_bar_set_range(&vscroll_bar, 0, window.height);
+	scroll_bar_set_pos(&vscroll_bar, 0);
+	scroll_bar_set_page(&vscroll_bar, window.height);
+
+	scroll_bar_draw(&vscroll_bar);
+
+	scroll_bar_init(&hscroll_bar, 0, window.height-STATUS_BAR_HEIGHT_DEFAULT-SCROLL_BAR_THICKNESS_DEFAULT, window.width-SCROLL_BAR_THICKNESS_DEFAULT, SCROLL_BAR_HSCROLL);
+	scroll_bar_set_range(&hscroll_bar, 0, window.width-SCROLL_BAR_THICKNESS_DEFAULT);
+	scroll_bar_set_pos(&hscroll_bar, 0);
+	scroll_bar_set_page(&hscroll_bar, window.width);
+
+	scroll_bar_draw(&hscroll_bar);
 	
 }
 

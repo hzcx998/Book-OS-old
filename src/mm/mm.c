@@ -40,6 +40,11 @@ void mm_interface_init()
 	#ifdef _CONFIG_MM_BASIC_
 		mm.malloc = kernel_malloc;
 		mm.free = kernel_free;
+		mm.realloc = kernel_realloc;
+
+		mm.usr_malloc = user_malloc;
+		mm.usr_free = user_free;
+		mm.usr_realloc = user_realloc;
 	#endif
 	
 }

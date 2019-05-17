@@ -4,6 +4,7 @@
 
 void *malloc(int size);
 void free(void *ptr);
+void *realloc(void *mem_address, unsigned int newsize);
 
 void get_memory(int *size, int *free);
 

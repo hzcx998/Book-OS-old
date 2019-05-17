@@ -37,7 +37,9 @@ OBJS =  _start.o \
 		main.o \
 		button.o \
 		status_bar.o \
-		path_bar.o
+		path_bar.o \
+		scroll_bar.o \
+		frame.o
 
 LD_OBJS = $(LIB_DIR)printf.o\
 		$(LIB_DIR)malloc.o\

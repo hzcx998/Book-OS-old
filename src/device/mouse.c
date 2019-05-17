@@ -147,93 +147,101 @@ void thread_mouse(void *arg)
 					if (bogui_container_manager->can_hand_container) {
 						//获取一个最高的容器，或者获取不到容器
 						bogui_container_manager->hand_container = bogui_get_container_where_mouse_on(mouse.x, mouse.y);
-						//如果获取到了容器
-						//判断是什么类型的容器
-						if (bogui_container_manager->hand_container->flags&BOGUI_CONTAINER_BUTTOM) {
-							//是最底层容器（桌面）
-							//先把已有的聚焦窗口的标题栏变成未激活状态
-							bogui_inactive_all_window();
-							bogui_container_manager->current_container = buttom_container;
-								
-							/*当点击桌面的时候，没有窗口聚焦，所以要把窗口控制也设置一下*/
-							bogui_taskbar_winctl_cancel_all();
-
-							//鼠标监听在底层容器上发生的点击事件
-							bogui_mouse_click_listen(mouse.x, mouse.y, MOUSE_LEFT, MOUSE_DOWN);
-								
-						} else if (bogui_container_manager->hand_container->flags&BOGUI_CONTAINER_WINDOW) {
-							//是窗口
-							//如果选中的和当前的不一样，才改变窗口聚焦
-							if (bogui_container_manager->hand_container != bogui_container_manager->current_container) {
-								
-								/*先发送一个改变窗口聚焦的消息*/
-								mouse_gmsg_out.id = BOGUI_MSG_WINDOW_FOUCS;
-								mouse_gmsg_out.data.ptr[0] = bogui_container_manager->hand_container;
-
-								bogui_msg_send(&mouse_gmsg_out);
-							}
-							//是在标题栏还是在活动区域？
-
-							//获取鼠标简化位置
-							bogui_container_manager->mouse_off_x = mouse.x - bogui_container_manager->hand_container->x;		//鼠标位置和图层位置的距离
-							bogui_container_manager->mouse_off_y = mouse.y - bogui_container_manager->hand_container->y;		//鼠标位置和图层位置的距离
-								
-							//鼠标监听在窗口容器上发生的点击事件
-							bogui_mouse_click_listen(mouse.x, mouse.y, MOUSE_LEFT, MOUSE_DOWN);
+					}
+					//如果获取到了容器
+					//判断是什么类型的容器
+					if (bogui_container_manager->hand_container->flags&BOGUI_CONTAINER_BUTTOM) {
+						//是最底层容器（桌面）
+						//先把已有的聚焦窗口的标题栏变成未激活状态
+						bogui_inactive_all_window();
+						bogui_container_manager->current_container = buttom_container;
 							
-							//窗口移动处理，如果没有点击窗口上的按钮
-							if (bogui_container_manager->moveing_container == NULL && bogui_container_manager->can_hand_container) {
+						/*当点击桌面的时候，没有窗口聚焦，所以要把窗口控制也设置一下*/
+						bogui_taskbar_winctl_cancel_all();
 
-								if (0 <= bogui_container_manager->mouse_off_x && \
-									bogui_container_manager->mouse_off_x < bogui_container_manager->hand_container->width && \
-									0 <= bogui_container_manager->mouse_off_y && \
-									bogui_container_manager->mouse_off_y < bogui_container_manager->hand_container->window->frame.y) {
-										
-									//记录窗口的偏移
-									bogui_container_manager->win_off_x = bogui_container_manager->mouse_off_x;
-									bogui_container_manager->win_off_y = bogui_container_manager->mouse_off_y;
+						//鼠标监听在底层容器上发生的点击事件
+						bogui_mouse_click_listen(mouse.x, mouse.y, MOUSE_LEFT, MOUSE_DOWN);
 
-									//记录上次鼠标的位置					
-									bogui_container_manager->last_mouse_x = mouse.x;
-									bogui_container_manager->last_mouse_y = mouse.y;
-										
-									//如果在标题栏之内，就可以移动, 设定移动的窗口
-									bogui_container_manager->moveing_container = bogui_container_manager->hand_container;
-								}
-							}
-							/*
-							点击后就不能继续监测其它的点击，必须等待下一次点击
-							用于避免几个窗口叠加在一起，最上层操作完后会监测下面一层，
-							从而又会执行类似的操作
-							*/
-							bogui_container_manager->can_hand_container = 0;
+					} else if (bogui_container_manager->hand_container->flags&BOGUI_CONTAINER_WINDOW) {
+						//是窗口
+						//如果选中的和当前的不一样，才改变窗口聚焦
+						if (bogui_container_manager->hand_container != bogui_container_manager->current_container) {
+							
+							/*先发送一个改变窗口聚焦的消息*/
+							mouse_gmsg_out.id = BOGUI_MSG_WINDOW_FOUCS;
+							mouse_gmsg_out.data.ptr[0] = bogui_container_manager->hand_container;
+
+							bogui_msg_send(&mouse_gmsg_out);
 
 							//点击一个窗口后，把它的窗口控制激活
 							bogui_taskbar_winctl_focus(bogui_container_manager->hand_container->window->winctl);
 
-						} else if (bogui_container_manager->hand_container->flags&BOGUI_CONTAINER_FIXED) {
-							//固定的容器（任务栏）
-							//先把已有的聚焦窗口的标题栏变成未激活状态
-							//fixed是不接受键盘的，其它的都要接受键盘
-							bogui_inactive_all_window();
+							bogui_container_manager->current_container = bogui_container_manager->hand_container;
+						}
 
-							bogui_container_manager->current_container = bogui_taskbar.container;
-
-							/*
-							当有鼠标点击后，就监听
-							如果发现没有点击到某个winctl，就会把已经激活的winctl取消，就达到了
-							点击容器的其它地方使得已经激活的winctl取消激活
-							*/
-							bogui_mouse_click_listen(mouse.x, mouse.y, MOUSE_LEFT, MOUSE_DOWN);
+						//没有移动时才检测
+						if (bogui_container_manager->can_hand_container == 1) {
+							//获取鼠标简化位置
+							bogui_container_manager->mouse_off_x = mouse.x - bogui_container_manager->hand_container->x;		//鼠标位置和图层位置的距离
+							bogui_container_manager->mouse_off_y = mouse.y - bogui_container_manager->hand_container->y;		//鼠标位置和图层位置的距离
 							
-						} else if (bogui_container_manager->hand_container->flags&BOGUI_CONTAINER_FLOAT) {
-							//悬浮窗（弹出菜单）
+							//鼠标监听在窗口容器上发生的点击事件
+							bogui_mouse_click_listen(mouse.x, mouse.y, MOUSE_LEFT, MOUSE_DOWN);
 
 						}
+
+						//窗口移动处理，如果没有点击窗口上的按钮
+						if (bogui_container_manager->moveing_container == NULL && bogui_container_manager->can_hand_container) {
+
+							if (0 <= bogui_container_manager->mouse_off_x && \
+								bogui_container_manager->mouse_off_x < bogui_container_manager->hand_container->width && \
+								0 <= bogui_container_manager->mouse_off_y && \
+								bogui_container_manager->mouse_off_y < bogui_container_manager->hand_container->window->frame.y) {
+									
+								//记录窗口的偏移
+								bogui_container_manager->win_off_x = bogui_container_manager->mouse_off_x;
+								bogui_container_manager->win_off_y = bogui_container_manager->mouse_off_y;
+
+								//记录上次鼠标的位置					
+								bogui_container_manager->last_mouse_x = mouse.x;
+								bogui_container_manager->last_mouse_y = mouse.y;
+									
+								//如果在标题栏之内，就可以移动, 设定移动的窗口
+								bogui_container_manager->moveing_container = bogui_container_manager->hand_container;
+
+								/*
+								点击后就不能继续监测其它的点击，必须等待下一次点击
+								用于避免几个窗口叠加在一起，最上层操作完后会监测下面一层，
+								从而又会执行类似的操作
+								*/
+								bogui_container_manager->can_hand_container = 0;
+
+							}
+
+							
+						}
 						
-					} else {
 						
+					} else if (bogui_container_manager->hand_container->flags&BOGUI_CONTAINER_FIXED) {
+						//固定的容器（任务栏）
+						//先把已有的聚焦窗口的标题栏变成未激活状态
+						//fixed是不接受键盘的，其它的都要接受键盘
+						bogui_inactive_all_window();
+
+						bogui_container_manager->current_container = bogui_taskbar.container;
+
+						/*
+						当有鼠标点击后，就监听
+						如果发现没有点击到某个winctl，就会把已经激活的winctl取消，就达到了
+						点击容器的其它地方使得已经激活的winctl取消激活
+						*/
+						bogui_mouse_click_listen(mouse.x, mouse.y, MOUSE_LEFT, MOUSE_DOWN);
+						
+					} else if (bogui_container_manager->hand_container->flags&BOGUI_CONTAINER_FLOAT) {
+						//悬浮窗（弹出菜单）
+
 					}
+
 				/*
 				鼠标左键弹起后，需要去执行的操作
 				*/

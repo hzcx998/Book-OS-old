@@ -15,6 +15,11 @@ struct mm_s
 {
 	void *(*malloc)(uint32_t size);
 	int (*free)(void *addr);
+	void *(*realloc)(void *mem_address, uint32_t newsize);
+
+	void *(*usr_malloc)(uint32_t size);
+	int (*usr_free)(void *addr);
+	void *(*usr_realloc)(void *mem_address, uint32_t newsize);
 };
 extern struct mm_s mm;
 

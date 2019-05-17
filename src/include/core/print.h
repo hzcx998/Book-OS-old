@@ -8,8 +8,8 @@
 void init_print();
 
 /*显示字符的函数指针*/
-//void (*display_char_func)(char ch);
-//void (*sys_clean_screen)();
+void (*display_char_func)(char ch);
+void (*sys_clean_screen)();
 
 int buffer_of_print(char* buf, int len);
 int printk(const char *fmt, ...);
