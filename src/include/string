@@ -1,0 +1,324 @@
+#pragma once
+#include <stddef.h>
+#include <stdio.h>
+#include <string.h>
+#include <algorithm>
+using namespace std;
+
+class String
+{
+public:
+    String(const char* str = "")
+        :_str(new char[strlen(str) + 1])
+        , _size(strlen(str))
+        , _capacity(strlen(str) + 1)
+    {
+        
+        strcpy(_str, str);
+    }
+
+    // String s2(s1) 
+    String(const String& s)
+        :_str(new char[strlen(s._str) + 1])
+        , _size(strlen(s._str))
+        , _capacity(strlen(s._str) + 1)
+    {
+        _str = s._str;
+        _size = s._size;
+        _capacity = s._capacity;
+    }
+
+    ~String()
+    {
+        if (_str)
+        {
+            delete[] _str;
+            _str = NULL;
+        }
+    }
+
+    const char* c_str()
+    {
+        return _str;
+    }
+
+    //增删查改
+    void Expand(size_t n);
+    void PushBack(char ch);
+    void PushBack(const char* str);
+    void PopBack();
+    void Insert(size_t pos, char ch);
+    void Insert(size_t pos, const char* str);
+    void Erase(size_t pos, size_t n);
+
+    size_t Find(char ch) const;
+    size_t Find(const char* str) const; 
+
+    void Swap(String& s);
+    // s1 = s2 
+    String& operator=(String s);
+    // s1 + 'a' 
+    String operator+(char ch);
+    String& operator+=(char ch);
+    String operator+(const char* str);
+    String& operator+=(const char* str);
+
+    bool operator<(const String& s) const;
+    bool operator<=(const String& s) const;
+    bool operator>(const String& s) const;
+    bool operator>=(const String& s) const;
+    bool operator==(const String& s) const;
+    bool operator!=(const String& s) const;
+
+private:
+    char* _str;
+    size_t _size;
+    size_t _capacity;
+};
+
+void String::Expand(size_t n)    //扩容
+{
+    if (n > _capacity)
+    {
+        _str = (char*)realloc(_str, n + 1);
+        _capacity = n + 1;
+    }
+}
+
+//增删查改
+void String::PushBack(char ch)
+{
+    if (_size >= _capacity - 1)
+    {
+        Expand(_capacity * 2);
+    }
+    _str[_size] = ch;
+    _size++;
+    _str[_size] = '\0';    //最后加上'\0'
+}
+
+void String::PushBack(const char* str)
+{
+    size_t len = strlen(str);
+    if (len + _size >= _capacity - 1)
+    {
+        Expand(len + _size);
+    }
+    strcpy(_str + _size, str);
+    _size = strlen(_str);
+}
+
+void String::PopBack()
+{
+    if (_size > 0)
+    {
+        _str[_size - 1] = _str[_size];    //将'\0'前移
+        --_size;
+    }
+}
+
+void String::Insert(size_t pos, char ch)
+{
+    if (_size >= _capacity)
+    {
+        Expand(_capacity * 2);
+    }
+    size_t end = _size;
+    while (end >= pos)
+    {
+        _str[end + 1] = _str[end];
+        --end;
+    }
+    _str[pos] = ch;
+    ++_size;
+}
+
+void String::Insert(size_t pos, const char* str)
+{
+    size_t len = strlen(str);
+    size_t tmp = len;
+    if (_size + len > _capacity)
+    {
+        Expand(_size + len);
+    }
+    size_t end = _size;
+    while (end >= pos)
+    {
+        _str[end + len] = _str[end];
+        --end;
+    }
+    while (len-- > 0)
+    {
+        _str[pos++] = *str++;
+    }
+    _size += tmp;
+}
+
+void String::Erase(size_t pos, size_t n)
+{
+    if (pos + n >= _size - 1)
+    {
+        _str[pos] = '\0';
+        _size = pos;
+    }
+    else
+    {
+        strcpy(_str + pos, _str + pos + n);     //相当于直接将'\0'拷到pos处
+        _size -= n;
+    }
+}
+
+size_t String::Find(char ch) const
+{
+    for (size_t i = 0; i < _size; ++i)
+    {
+        if (_str[i] == ch)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+size_t String::Find(const char* str) const{
+    char* start = (char*)_str;
+    char* substart = (char*)str;
+    char* ret = (char*)_str;
+    while (*ret)
+    {
+        start = ret;
+        if (*start && *substart && (*start == *substart))
+        {
+            ++start;
+            ++substart;
+        }
+        if (*substart == '\0')
+        {
+            return 1;
+        }
+        substart = (char*)str;
+        ret++;
+    }
+    return -1;
+}
+
+// s1.Swap(s2); 
+void String::Swap(String& s)
+{
+    if (*this != s)
+    {
+        swap(_str, s._str);
+        swap(_size, s._size);
+        swap(_capacity, s._capacity);
+    }
+}
+
+// s1 = s2 (现代写法)
+String& String::operator=(String s)
+{
+    if (this != &s)
+    {
+        _size = s._size;
+        _capacity = s._capacity;
+        swap(_str, s._str);
+    }
+    return *this;
+}
+
+//// s1 = s2 (传统写法)
+//String& String::operator=(String s)
+//{
+//  if (this != &s)
+//  {
+//      int len = strlen(s._str);
+//      char* tmp = new char[len + 1];
+//      strcpy(tmp, s._str);
+//      _str = NULL;
+//      _str = tmp;
+//  }
+//  return *this;
+//
+
+String String::operator+(const char* str)
+{
+    String *s = new String;
+    s->_size = _size + strlen(str);
+    s->_capacity = _capacity + strlen(str);
+    s->_str = new char[s->_size + 1];
+    strcpy(s->_str, _str);
+    strcat(s->_str, str);
+    return *s;
+}
+
+String& String::operator+=(const char* str)
+{
+    _size += strlen(str);
+    _capacity += strlen(str);
+    char *s = new char[_size + 1];
+    strcpy(s, _str);
+    strcat(s, str);
+    delete[] _str;
+    _str = s;
+    return *this;
+}
+
+bool String::operator<(const String& s) const
+{
+    size_t i = 0;
+    for (; i < _size && i < s._size; ++i)
+    {
+        if (_str[i] < s._str[i])
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    if (i == _size)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool String::operator<=(const String& s) const
+{
+    return *this < s || *this == s;
+}
+
+bool String::operator>(const String& s) const
+{
+    return !(*this <= s);
+}
+
+bool String::operator>=(const String& s) const
+{
+    return !(*this < s);
+}
+
+bool String::operator==(const String& s) const
+{
+    size_t i = 0;
+    for (; i < _size && i < s._size; ++i)
+    {
+        if (_str[i] != s._str[i])
+        {
+            return false;
+        }
+    }
+    if (i == _size && i == s._size)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool String::operator!=(const String& s) const
+{
+    return !(*this == s);
+}

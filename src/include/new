@@ -1,0 +1,14 @@
+#ifndef CPP_NEW
+#define CPP_NEW
+extern "C" {
+    #include <stdlib.h>
+}
+#include <algorithm>
+void* operator new(unsigned int size) {
+    return malloc(size);
+}
+void operator delete(void * ptr) {
+    free(ptr);
+    
+}
+#endif
