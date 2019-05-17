@@ -2,4 +2,7 @@
 #define _H_RIOSTREAM
 #include <ostream>
 ostream cout;
+_endl endl;
+//注意 Bookos中的标准库实现和标准实现不同！
+
 #endif
