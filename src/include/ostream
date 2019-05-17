@@ -1,0 +1,35 @@
+#ifndef _H_ROSTREAM
+#define _H_ROSTREAM
+namespace std{
+class ostream {
+public:
+    const ostream& operator<<(int v) const {
+        printf("%d",v);
+        return *this;
+    }
+    const ostream& operator<<(long long v) const {
+        printf("%d",v);
+        return *this;
+    }
+    const ostream& operator<<(unsigned int v) const {
+        printf("%u",v);
+        return *this;
+    }
+    const ostream& operator<<(unsigned long long v) const {
+        printf("%llu",v);
+        return *this;
+    }
+    const ostream& operator << (char*str)const {
+        printf("%s",str);
+        return *this;
+    }
+    const ostream& operator << (const char*str)const {
+        printf("%s",str);
+        return *this;
+    }
+};
+
+
+
+}
+#endif

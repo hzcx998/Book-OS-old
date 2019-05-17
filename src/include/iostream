@@ -1,0 +1,5 @@
+#ifndef _H_RIOSTREAM
+#define _H_RIOSTREAM
+#include <ostream>
+ostream cout;
+#endif

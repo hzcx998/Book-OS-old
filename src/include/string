@@ -1,14 +1,22 @@
 #pragma once
+#include <algorithm>
+#include <new>
+#include <ostream>
+extern "C"{
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
-#include <algorithm>
+}
 using namespace std;
-
-class String
+  void * __gxx_personality_v0 = 0; 
+ void * _Unwind_Resume = 0; 
+class string
 {
 public:
-    String(const char* str = "")
+    friend ostream& operator<<(ostream &os, string &str) {
+        os << str.c_str();
+    }
+    string(const char* str = "")
         :_str(new char[strlen(str) + 1])
         , _size(strlen(str))
         , _capacity(strlen(str) + 1)
@@ -17,8 +25,8 @@ public:
         strcpy(_str, str);
     }
 
-    // String s2(s1) 
-    String(const String& s)
+    // string s2(s1) 
+    string(const string& s)
         :_str(new char[strlen(s._str) + 1])
         , _size(strlen(s._str))
         , _capacity(strlen(s._str) + 1)
@@ -28,7 +36,7 @@ public:
         _capacity = s._capacity;
     }
 
-    ~String()
+    ~string()
     {
         if (_str)
         {
@@ -54,21 +62,21 @@ public:
     size_t Find(char ch) const;
     size_t Find(const char* str) const; 
 
-    void Swap(String& s);
+    void Swap(string& s);
     // s1 = s2 
-    String& operator=(String s);
+    string& operator=(string s);
     // s1 + 'a' 
-    String operator+(char ch);
-    String& operator+=(char ch);
-    String operator+(const char* str);
-    String& operator+=(const char* str);
+    string operator+(char ch);
+    string& operator+=(char ch);
+    string operator+(const char* str);
+    string& operator+=(const char* str);
 
-    bool operator<(const String& s) const;
-    bool operator<=(const String& s) const;
-    bool operator>(const String& s) const;
-    bool operator>=(const String& s) const;
-    bool operator==(const String& s) const;
-    bool operator!=(const String& s) const;
+    bool operator<(const string& s) const;
+    bool operator<=(const string& s) const;
+    bool operator>(const string& s) const;
+    bool operator>=(const string& s) const;
+    bool operator==(const string& s) const;
+    bool operator!=(const string& s) const;
 
 private:
     char* _str;
@@ -76,7 +84,7 @@ private:
     size_t _capacity;
 };
 
-void String::Expand(size_t n)    //扩容
+void string::Expand(size_t n)    //扩容
 {
     if (n > _capacity)
     {
@@ -86,7 +94,7 @@ void String::Expand(size_t n)    //扩容
 }
 
 //增删查改
-void String::PushBack(char ch)
+void string::PushBack(char ch)
 {
     if (_size >= _capacity - 1)
     {
@@ -97,7 +105,7 @@ void String::PushBack(char ch)
     _str[_size] = '\0';    //最后加上'\0'
 }
 
-void String::PushBack(const char* str)
+void string::PushBack(const char* str)
 {
     size_t len = strlen(str);
     if (len + _size >= _capacity - 1)
@@ -108,7 +116,7 @@ void String::PushBack(const char* str)
     _size = strlen(_str);
 }
 
-void String::PopBack()
+void string::PopBack()
 {
     if (_size > 0)
     {
@@ -117,7 +125,7 @@ void String::PopBack()
     }
 }
 
-void String::Insert(size_t pos, char ch)
+void string::Insert(size_t pos, char ch)
 {
     if (_size >= _capacity)
     {
@@ -133,7 +141,7 @@ void String::Insert(size_t pos, char ch)
     ++_size;
 }
 
-void String::Insert(size_t pos, const char* str)
+void string::Insert(size_t pos, const char* str)
 {
     size_t len = strlen(str);
     size_t tmp = len;
@@ -154,7 +162,7 @@ void String::Insert(size_t pos, const char* str)
     _size += tmp;
 }
 
-void String::Erase(size_t pos, size_t n)
+void string::Erase(size_t pos, size_t n)
 {
     if (pos + n >= _size - 1)
     {
@@ -168,7 +176,7 @@ void String::Erase(size_t pos, size_t n)
     }
 }
 
-size_t String::Find(char ch) const
+size_t string::Find(char ch) const
 {
     for (size_t i = 0; i < _size; ++i)
     {
@@ -180,7 +188,7 @@ size_t String::Find(char ch) const
     return -1;
 }
 
-size_t String::Find(const char* str) const{
+size_t string::Find(const char* str) const{
     char* start = (char*)_str;
     char* substart = (char*)str;
     char* ret = (char*)_str;
@@ -203,7 +211,7 @@ size_t String::Find(const char* str) const{
 }
 
 // s1.Swap(s2); 
-void String::Swap(String& s)
+void string::Swap(string& s)
 {
     if (*this != s)
     {
@@ -214,7 +222,7 @@ void String::Swap(String& s)
 }
 
 // s1 = s2 (现代写法)
-String& String::operator=(String s)
+string& string::operator=(string s)
 {
     if (this != &s)
     {
@@ -226,7 +234,7 @@ String& String::operator=(String s)
 }
 
 //// s1 = s2 (传统写法)
-//String& String::operator=(String s)
+//string& string::operator=(string s)
 //{
 //  if (this != &s)
 //  {
@@ -239,9 +247,9 @@ String& String::operator=(String s)
 //  return *this;
 //
 
-String String::operator+(const char* str)
+string string::operator+(const char* str)
 {
-    String *s = new String;
+    string *s = new string;
     s->_size = _size + strlen(str);
     s->_capacity = _capacity + strlen(str);
     s->_str = new char[s->_size + 1];
@@ -250,7 +258,7 @@ String String::operator+(const char* str)
     return *s;
 }
 
-String& String::operator+=(const char* str)
+string& string::operator+=(const char* str)
 {
     _size += strlen(str);
     _capacity += strlen(str);
@@ -262,7 +270,7 @@ String& String::operator+=(const char* str)
     return *this;
 }
 
-bool String::operator<(const String& s) const
+bool string::operator<(const string& s) const
 {
     size_t i = 0;
     for (; i < _size && i < s._size; ++i)
@@ -286,22 +294,22 @@ bool String::operator<(const String& s) const
     }
 }
 
-bool String::operator<=(const String& s) const
+bool string::operator<=(const string& s) const
 {
     return *this < s || *this == s;
 }
 
-bool String::operator>(const String& s) const
+bool string::operator>(const string& s) const
 {
     return !(*this <= s);
 }
 
-bool String::operator>=(const String& s) const
+bool string::operator>=(const string& s) const
 {
     return !(*this < s);
 }
 
-bool String::operator==(const String& s) const
+bool string::operator==(const string& s) const
 {
     size_t i = 0;
     for (; i < _size && i < s._size; ++i)
@@ -318,7 +326,7 @@ bool String::operator==(const String& s) const
     return false;
 }
 
-bool String::operator!=(const String& s) const
+bool string::operator!=(const string& s) const
 {
     return !(*this == s);
 }
