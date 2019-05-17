@@ -1,5 +1,8 @@
 #ifndef _H_ROSTREAM
 #define _H_ROSTREAM
+extern "C" {
+#include "stdio.h"
+}
 namespace std{
 class ostream {
 public:
@@ -28,7 +31,13 @@ public:
         return *this;
     }
 };
-
+class _endl {
+public:
+    friend const ostream& operator<<(const ostream &os, _endl &end) {
+        os << "\n";
+        return os;
+    }
+};
 
 
 }

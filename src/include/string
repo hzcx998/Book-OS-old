@@ -11,13 +11,7 @@ using namespace std;
 // Magic 魔法 只能这么干，不然会报错
 void * __gxx_personality_v0 = 0; 
 void * _Unwind_Resume = 0; 
-class _endl {
-public:
-    friend const ostream& operator<<(const ostream &os, _endl &end) {
-        os << "\n";
-        return os;
-    }
-};
+
 class string
 {
 public:
