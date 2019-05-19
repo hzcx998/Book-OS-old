@@ -2,6 +2,7 @@
 #define _SCROLL_BAR_H
 
 #include <stdint.h>
+#include "view.h"
 
 #define SCROLL_BAR_STATUS_IDLE  0
 #define SCROLL_BAR_STATUS_TOUCH  1
@@ -58,7 +59,7 @@ typedef struct scrool_bar_s
     void (*mouse_up)(void);    //弹起按钮的操作
 
     struct scrool_bar_blocl_s block;    //滑动块
-
+    struct view_s *view;    //滑动块
 }scroll_bar_t;
 
 void scroll_bar_init(scroll_bar_t *scroll_bar, int x, int y, int len, int type);
@@ -71,8 +72,13 @@ void scroll_bar_set_flags(scroll_bar_t *scroll_bar, uint32_t flags);
 void scroll_bar_set_page(scroll_bar_t *scroll_bar, uint32_t page);
 
 void scroll_bar_draw(scroll_bar_t *scroll_bar);
-void scroll_bind_even(scroll_bar_t *scroll_bar, void (*mouse_down)(), void (*mouse_up)());
+
+void scroll_bar_bind_even(scroll_bar_t *scroll_bar, void (*mouse_down)(), void (*mouse_up)());
+
+void scroll_bar_bind_view(scroll_bar_t *scroll_bar, struct view_s *view);
 void scroll_bar_update(scroll_bar_t *scroll_bar, int mousex, int mousey, int status);
 void scroll_bar_change_status(scroll_bar_t *scroll_bar, int status);
+
+
 
 #endif  //_SCROLL_BAR_H

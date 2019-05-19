@@ -27,7 +27,7 @@ DISK_VHD = hd01.vhd
 FLAPPY_IMG = $(IMG_DIR)$(DISK_IMG)
 
 #flags
-ASM_FLAGS	= -I $(INCLUDE_DIR) -f elf
+ASM_FLAGS	= -I $(INCLUDE_DIR) -f elf 
 C_FLAGS	= -I $(INCLUDE_DIR) -c -fno-builtin -Wall -Wunused -m32 -fno-stack-protector
 
 LDFLAGS		= -m elf_i386 -e _start -Ttext 0x80000000

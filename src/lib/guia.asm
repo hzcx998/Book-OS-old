@@ -22,6 +22,7 @@ _NR_GUI_MOUSE_MOVE 	    EQU	64
 _NR_GUI_MOUSE_CLICK 	EQU	65
 _NR_GUI_KEYBOARD 	    EQU	66
 _NR_GUI_GET_MODIFIERS	EQU 67
+_NR_GUI_BUFFER_SET		EQU 68
 
 global gui_init
 gui_init:	; void gui_init();
@@ -160,4 +161,13 @@ gui_get_modifiers:	; int gui_get_modifiers();
 	mov eax, _NR_GUI_GET_MODIFIERS
 	int INT_VECTOR_SYS_CALL
 	ret
-
+	
+global gui_buffer_set
+gui_buffer_set:	; void gui_buffer_set(int x, int y, int width, int height);
+	mov eax, _NR_GUI_BUFFER_SET
+	mov ebx, [esp + 4]
+	mov ecx, [esp + 8]
+	mov edx, [esp + 12]
+	mov esi, [esp + 16]
+	int INT_VECTOR_SYS_CALL
+	ret

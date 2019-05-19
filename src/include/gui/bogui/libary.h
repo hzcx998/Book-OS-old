@@ -43,6 +43,9 @@ typedef struct bogui_libary_s
     uint32_t color;
     uint8_t *buffer;
     
+    int buf_x, buf_y;   //buf显示在哪儿
+    int buf_width, buf_height;  //buf的最大宽高
+
     struct bogui_container_s *container;
 } bogui_libary_t;
 
@@ -67,6 +70,7 @@ void bogui_guilib_rect(int x, int y, int width, int height);
 void bogui_guilib_text(int x, int y, char *text);
 
 void bogui_guilib_buffer(unsigned char *buffer);
+void bogui_guilib_buffer_set(int x, int y, int width, int height);
 void bogui_guilib_frame(int x, int y, int width, int height);
 
 void bogui_guilib_draw(int x1, int y1, int x2, int y2);

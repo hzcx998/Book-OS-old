@@ -2,6 +2,7 @@
 #define _BUTTON_H
 
 #include <stdint.h>
+#include "item.h"
 
 #define BUTTON_STATUS_IDLE  0
 #define BUTTON_STATUS_TOUCH  1
@@ -28,9 +29,8 @@ typedef struct button_s
     uint32_t color_idle, color_touch, color_click;  //静止色，触碰色，点击色
     uint32_t bcolor, fcolor;    //背景色和前景色
     char text[BUTTON_TEXT_LEN];
-    void (*mouse_down)(void);    //单击按钮的操作
-    void (*mouse_up)(void);    //弹起按钮的操作
-    
+    void (*mouse_down)(int mx, int my);    //单击按钮的操作
+    void (*mouse_up)(int mx, int my);    //弹起按钮的操作
 }button_t;
 
 void button_init(button_t *button, int x, int y, int width, int height);

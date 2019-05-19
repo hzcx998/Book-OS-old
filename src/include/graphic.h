@@ -94,6 +94,7 @@ void gui_rect(int x, int y, int width, int height);
 void gui_text(int x, int y, char *text);
 
 void gui_buffer(unsigned char *buffer);
+void gui_buffer_set(int x, int y, int width, int height);
 void gui_frame(int x, int y, int width, int height);
 void gui_draw(int x1, int y1, int x2, int y2);
 

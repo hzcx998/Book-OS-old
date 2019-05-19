@@ -14,6 +14,7 @@ void button_init(button_t *button, int x, int y, int width, int height)
 	button->status = BUTTON_STATUS_IDLE;
 	button->mouse_down = NULL;
 	button->mouse_up = NULL;
+	
 }
 
 void button_set_text(button_t *button, char *text)
@@ -63,12 +64,14 @@ void button_draw(button_t *button)
 	gui_rect(button->x, button->y, button->width, button->height);
 
 	//绘制按钮文字
-	gui_color(button->fcolor);
-	int x, y;
-	x = button->width/2 - strlen(button->text)*8/2;
-	y = button->height/2 - 16/2;
-	gui_text(button->x + x, button->y + y, button->text);
-
+	if (button->text[0] != 0) {
+		gui_color(button->fcolor);
+		int x, y;
+		x = button->width/2 - strlen(button->text)*8/2;
+		y = button->height/2 - 16/2;
+		gui_text(button->x + x, button->y + y, button->text);
+	}
+	
 	gui_draw(button->x, button->y, button->x + button->width, button->y + button->height);
 
 }
@@ -94,7 +97,7 @@ void button_update(button_t *button, int mousex, int mousey, int status)
 
 			if (button->mouse_down != NULL) {
 				//执行鼠标其它事件
-				button->mouse_down();
+				button->mouse_down(mousex, mousey);
 			}
 		} else if (status == MOUSE_UP) {
 			//先做内部操作
@@ -102,7 +105,7 @@ void button_update(button_t *button, int mousex, int mousey, int status)
 
 			if (button->mouse_up != NULL) {
 				//执行鼠标其它事件
-				button->mouse_up();
+				button->mouse_up(mousex, mousey);
 			}
 		} 
 

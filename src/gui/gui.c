@@ -66,6 +66,7 @@ void gui_interface_init()
 		gui.text = bogui_guilib_text;
 
 		gui.buffer = bogui_guilib_buffer;
+		gui.buffer_set = bogui_guilib_buffer_set;
 		gui.frame = bogui_guilib_frame;
 
 		gui.draw = bogui_guilib_draw;

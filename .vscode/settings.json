@@ -4,7 +4,9 @@
         "boex.h": "c",
         "button.h": "c",
         "status_bar.h": "c",
-        "path_bar.h": "c"
+        "path_bar.h": "c",
+        "item.h": "c",
+        "stdint.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

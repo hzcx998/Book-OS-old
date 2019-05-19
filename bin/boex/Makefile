@@ -29,17 +29,21 @@ HD_VHD = $(IMG_DIR)$(DISK_VHD)
 
 #flags
 ASM_FLAGS	= -I $(INCLUDE_DIR) -f elf
-C_FLAGS	= -I $(INCLUDE_DIR) -c -fno-builtin -Wall -Wunused
+C_FLAGS	= -I $(INCLUDE_DIR) -c -fno-builtin -Wall -Wunused -m32 -fno-stack-protector
 
-LDFLAGS		= -e _start -Ttext 0x80000000
+LDFLAGS		= -m elf_i386 -e _start -Ttext 0x80000000
 
 OBJS =  _start.o \
 		main.o \
 		button.o \
 		status_bar.o \
 		path_bar.o \
+		item.o \
+		frame.o \
+		view.o \
 		scroll_bar.o \
-		frame.o
+
+
 
 LD_OBJS = $(LIB_DIR)printf.o\
 		$(LIB_DIR)malloc.o\
@@ -50,34 +54,10 @@ LD_OBJS = $(LIB_DIR)printf.o\
 		$(LIB_DIR)write.o\
 		$(LIB_DIR)vsprintf.o\
 		$(LIB_DIR)string.o\
-		$(LIB_DIR)fopen.o\
-		$(LIB_DIR)fclose.o\
-		$(LIB_DIR)fread.o\
-		$(LIB_DIR)fwrite.o\
-		$(LIB_DIR)fstat.o\
-		$(LIB_DIR)lseek.o\
-		$(LIB_DIR)unlink.o\
-		$(LIB_DIR)opendir.o\
-		$(LIB_DIR)closedir.o\
-		$(LIB_DIR)readdir.o\
-		$(LIB_DIR)rewinddir.o\
-		$(LIB_DIR)mkdir.o\
-		$(LIB_DIR)rmdir.o\
-		$(LIB_DIR)rename.o\
-		$(LIB_DIR)copy.o\
-		$(LIB_DIR)move.o\
-		$(LIB_DIR)getcwd.o\
-		$(LIB_DIR)chdir.o\
 		$(LIB_DIR)wait.o\
 		$(LIB_DIR)execv.o\
 		$(LIB_DIR)clear.o\
-		$(LIB_DIR)ps.o\
-		$(LIB_DIR)reboot.o\
 		$(LIB_DIR)access.o\
-		$(LIB_DIR)gettime.o\
-		$(LIB_DIR)mm.o\
-		$(LIB_DIR)lsdir.o\
-		$(LIB_DIR)lsdisk.o\
 		$(LIB_DIR)guia.o\
 		$(LIB_DIR)fsa.o\
 		$(LIB_DIR)thread.o\

@@ -21,6 +21,7 @@ char* strncpy(char* dst_, char* src_, int n) ;
 char *strncat(char *dst, const char *src, int n);
 
 void *memset16(void* src, uint16 value, uint32_t size);
+void *memset32(void* src, uint32_t value, uint32_t size);
 
 #endif
 

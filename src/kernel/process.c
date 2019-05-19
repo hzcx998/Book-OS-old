@@ -82,7 +82,7 @@ void start_process(void *filename)
 	
 	proc_stack->eflags = (EFLAGS_MBS|EFLAGS_IF_1|EFLAGS_IOPL_0);
 	
-	proc_stack->esp = (void *)((uint32)thread_use_vaddr(USER_STACK3_ADDR) + PAGE_SIZE*2);
+	proc_stack->esp = (void *)((uint32)thread_use_vaddr(USER_STACK3_ADDR) + PAGE_SIZE);
 	//proc_stack->esp = (void *)(mm.malloc(PAGE_SIZE) + PAGE_SIZE);
 	
 	proc_stack->ss = USER_STACK_SEL;

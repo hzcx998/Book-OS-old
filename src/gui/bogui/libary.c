@@ -264,6 +264,28 @@ void bogui_guilib_text(int x, int y, char *text)
 	
 }
 
+/*
+frame_set(
+x：在屏幕上的x
+y：在屏幕上的y
+width：buffer的宽度
+height：buffer的高度
+)
+*/
+
+void bogui_guilib_buffer_set(int x, int y, int width, int height)
+{
+	struct thread *cur = thread_current();
+
+	cur->guilib->buf_x = x;
+	cur->guilib->buf_y = y;
+	cur->guilib->buf_width = width;
+	cur->guilib->buf_height = height;
+}
+
+/*
+从buf中的x，y的位置绘制宽度高度的矩形区域
+*/
 void bogui_guilib_frame(int x, int y, int width, int height)
 {
 	struct thread *cur = thread_current();
@@ -273,13 +295,18 @@ void bogui_guilib_frame(int x, int y, int width, int height)
 	}
 	bogui_window_t *window = cur->guilib->container->window;
 
-	uint32_t *buf = (uint32_t *)cur->guilib->buffer;
-
+	uint32_t *buffer = (uint32_t *)cur->guilib->buffer;
+	uint32_t *color;
 	int i, j;
 	for (j = 0; j < height; j++) {
 		for (i = 0; i < width; i++) {
+			//从buffer中获取颜色值，此时要取偏移
+			color = buffer + ((y+j)*cur->guilib->buf_width+(x+i));
+
 			bogui_container_write_pixel(cur->guilib->container, \
-				window->frame.x + x + i, window->frame.y + y + j, *(buf + (j*width+i)));
+				window->frame.x + cur->guilib->buf_x + i, \
+				window->frame.y + cur->guilib->buf_y + j, \
+				*color);
 		}
 	}
 }

@@ -81,6 +81,7 @@
 #define _NR_GUI_MOUSE_CLICK 	65
 #define _NR_GUI_KEYBOARD 	    66
 #define _NR_GUI_GET_MODIFIERS 	67
+#define _NR_GUI_BUFFER_SET   	68
 
 #define _NR_FS_LOAD_INODE		70
 
