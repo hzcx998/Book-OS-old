@@ -46,7 +46,7 @@ void process_b(void);
 void thread_c(void *arg);
 int test_va, test_vb;
 
-#define APP_PATH "C:/boex"
+#define APP_PATH "C:/bosh"
 
 void init_thread()
 {
