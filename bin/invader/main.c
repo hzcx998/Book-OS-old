@@ -4,10 +4,6 @@
 #include <graphic.h>
 #include "invader.h"
 
-void setdec8(char *s, int i);
-void putstr(int x, int y, uint32_t color, char *s);
-void wait(int i, timer_t *timer, char *keyflag);
-
 static char charset[16 * 8] = {
 
 	/* invader(0) */
@@ -125,6 +121,9 @@ next_group:
 	wait(100, timer, keyflag);
 
 	for (;;) {
+		//循环的时候需要检测
+		force_exit_check();
+
 		if (laserwait != 0) {
 			laserwait--;
 			keyflag[2 /* space */] = 0;
@@ -273,6 +272,8 @@ void wait(int i, timer_t *timer, char *keyflag)
 		i = '\n'; /* Enter */
 	}
 	for (;;) {
+		//等待的时候需要检测
+		force_exit_check();
 		//捕捉键盘
 		if (!gui_keyboard(&j) ) {
 			//如果i是'\n'，并且按下了回车，就会直接返回
@@ -379,4 +380,14 @@ void setdec8(char *s, int i)
 		i /= 10;
 	}
 	s[8] = 0;
+}
+
+void force_exit_check()
+{
+	//如果线程取消
+	if (thread_testcancel()) {
+		gui_window_close();
+
+		exit(1);
+	}
 }

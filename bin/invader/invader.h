@@ -21,5 +21,10 @@ struct window_s
 }window;
 
 int init_window(int width, int height);
+void force_exit_check();
+
+void setdec8(char *s, int i);
+void putstr(int x, int y, uint32_t color, char *s);
+void wait(int i, timer_t *timer, char *keyflag);
 
 #endif  //_INVADER_H

@@ -53,6 +53,7 @@ LD_OBJS = $(LIB_DIR)printf.o\
 		$(LIB_DIR)pipea.o \
 		$(LIB_DIR)pipec.o \
 		$(LIB_DIR)timer.o \
+		$(LIB_DIR)thread.o \
 		
 		
 #First read here
