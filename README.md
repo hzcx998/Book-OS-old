@@ -2,7 +2,7 @@
 BookOS is a 32-bit operating system based on x86 platform. 
 Enjoy it!  
 E-mail: 2323168280@qq.com  
-Website: https://huzichengdevelop.github.io/BookOS/  
+Website: www.book-os.org  
 Update:  
     v0.4 2019/5/13  
     v0.39 2019/5/2  
