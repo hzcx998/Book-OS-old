@@ -20,13 +20,13 @@ enum timer_status
 
 #define MAX_TIMER_TICKS	 0xffffff00
 
-struct timer
+typedef struct timer
 {
 	uint32 ticks;	//到达该定时器的ticks
 	enum timer_status status;	//定时器状态
 	uint32 occured;
 	struct timer *next;	//下一个定时器的结构体指针
-};
+}timer_t;
 
 struct timer_module
 {

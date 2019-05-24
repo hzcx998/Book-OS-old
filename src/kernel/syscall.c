@@ -124,7 +124,11 @@ void init_syscall()
 
 	sys_call_table[_NR_MM_REALLOC] = mm.usr_realloc;
 
-	
-	
+	sys_call_table[_NR_TIMER_ALLOC] = timer_alloc;
+	sys_call_table[_NR_TIMER_FREE] = timer_free;
+	sys_call_table[_NR_TIMER_SETTM] = timer_settime;
+	sys_call_table[_NR_TIMER_CANCEL] = timer_cancel;
+	sys_call_table[_NR_TIMER_OCCUR] = timer_occur;
+
 
 }
