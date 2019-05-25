@@ -17,6 +17,9 @@ E-mail:		2323168280@qq.com
 
 struct console console;
 
+
+struct lock lock_console;
+
 void init_console()
 {
 	console.vram_addr = 0;
@@ -24,12 +27,14 @@ void init_console()
 	console.current_start_addr = 0;
 	
 	console.cursor = 80*4;
-	console.lock = kernel_malloc(sizeof(struct lock));
+	
 	console.color = COLOR_DEFAULT;
 	
 	set_cursor(console.cursor);
 	
-	lock_init(&console.lock);
+	//由于在初始化console的时候还没有初始化内存管理，所以不能使用create_lock
+	console.lock = &lock_console;
+	lock_init(console.lock);
 
 	/*指向文本模式的文字显示*/
 	display_char_func = out_char;

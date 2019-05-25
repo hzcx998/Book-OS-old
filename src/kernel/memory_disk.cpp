@@ -1,8 +1,8 @@
 
-#include <new>
+/*#include <new>
 extern "C" {
 #include <sys/memory_disk.h>
-#include <memory.h>
+#include <sys/mm.h>
 #include <types.h>
 #include <string.h>
 }
@@ -58,4 +58,4 @@ bool new_file(char* file_name,unsigned long long max_size) {
     }
     now_file_number ++;
     return true;
-}
+}*/

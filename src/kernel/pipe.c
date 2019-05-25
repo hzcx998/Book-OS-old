@@ -73,7 +73,6 @@ void init_pipe()
     printk("< init pipe done.\n");
 }
 
-
 void pipe_manager_dump()
 {
     printk("=====pipe manager=====\n");
@@ -180,7 +179,7 @@ int32_t sys_pipe_create(uint32_t size)
     }
 
     //初始化新建pipe的锁
-    target->lock = kernel_malloc(sizeof(struct lock));
+    target->lock = create_lock();
     lock_init(target->lock);
 
     pipe_manager.pipe_number++;
@@ -299,10 +298,10 @@ int32_t sys_pipe_write(uint32_t pipe_id,void* data,uint32_t size)
             target_pipe->pipe_id, target_pipe->pipe_status, cur->pid, cur->parent_pid);*/
         
         //上锁
-        lock_acquire(&target_pipe->lock);
+        lock_acquire(target_pipe->lock);
         memcpy(target_pipe->data_area,data,size);
         //解锁
-        lock_release(&target_pipe->lock);
+        lock_release(target_pipe->lock);
 
         //设置成有数据状态
         target_pipe->pipe_status = PIPE_STATUS_DATA;
@@ -353,12 +352,12 @@ int32_t sys_pipe_read(uint32_t pipe_id,void* buffer)
         
 
         //上锁
-        lock_acquire(&target_pipe->lock);
+        lock_acquire(target_pipe->lock);
         memcpy(buffer,target_pipe->data_area,target_pipe->data_size);
         
         //memset(target_pipe->data_area, 0, target_pipe->data_size);
         //解锁
-        lock_release(&target_pipe->lock);
+        lock_release(target_pipe->lock);
 
         //数据读取完后变成连接状态
         target_pipe->pipe_status = PIPE_STATUS_CONNECT;

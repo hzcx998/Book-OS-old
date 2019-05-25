@@ -22,6 +22,9 @@ void sema_init(struct semaphore *sema, uint8 value)
 struct lock *create_lock()
 {
 	struct lock *lock = (struct lock *)mm.malloc(sizeof(struct lock));
+	if (lock == NULL) {
+		return NULL;
+	}
 	return lock;
 }
 

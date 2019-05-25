@@ -20,8 +20,7 @@ struct console
 	uint32_t vram_limit;
 	uint32_t cursor;
 	uint8 color;
-	struct lock* lock;
-	
+	struct lock *lock;
 };
 
 extern struct console console;

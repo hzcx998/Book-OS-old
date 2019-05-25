@@ -27,7 +27,7 @@ void init_print()
 
 int printk(const char *fmt, ...)
 {
-	if(thread_opened) lock_acquire(&console.lock);
+	if(thread_opened) lock_acquire(console.lock);
 	
 	int i;
 	char buf[256];
@@ -35,7 +35,7 @@ int printk(const char *fmt, ...)
 	i = vsprintf(buf, fmt, arg);
 	buffer_of_print(buf, i);
 	
-	if(thread_opened) lock_release(&console.lock);
+	if(thread_opened) lock_release(console.lock);
 	
 	return i;
 }
@@ -53,19 +53,19 @@ int buffer_of_print(char* buf, int len)
 
 int sys_write_str(char *str)
 {
-	if(thread_opened) lock_acquire(&console.lock);
+	if(thread_opened) lock_acquire(console.lock);
 	
 	int len = strlen(str);
 	buffer_of_print(str, len);
-	if(thread_opened) lock_release(&console.lock);
+	if(thread_opened) lock_release(console.lock);
 	return len;
 }
 
 void sys_writ_char(char ch)
 {
-	if(thread_opened) lock_acquire(&console.lock);
+	if(thread_opened) lock_acquire(console.lock);
 	display_char_func(ch);
-	if(thread_opened) lock_release(&console.lock);
+	if(thread_opened) lock_release(console.lock);
 	
 }
 
