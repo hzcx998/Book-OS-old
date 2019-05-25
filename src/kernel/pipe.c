@@ -22,7 +22,6 @@ void init_pipe()
     //初始化基础信息
     pipe_manager.pipe_header = NULL;
     pipe_manager.pipe_number = 0;
-
     /*int pipe = sys_pipe_create(64);
 
     char buf[64];
@@ -181,7 +180,8 @@ int32_t sys_pipe_create(uint32_t size)
     }
 
     //初始化新建pipe的锁
-    lock_init(&target->lock);
+    target->lock = kernel_malloc(sizeof(struct lock));
+    lock_init(target->lock);
 
     pipe_manager.pipe_number++;
 
