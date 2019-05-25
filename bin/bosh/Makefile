@@ -22,15 +22,16 @@ IMG_DIR = ../../img/
 
 DISK_IMG = d.img
 
-DISK_VHD = hd01.vhd
+DISK_VHD = d.vhd
 
-FLAPPY_IMG = $(IMG_DIR)$(DISK_IMG)
+HD_IMG = $(IMG_DIR)$(DISK_IMG)
+HD_VHD = $(IMG_DIR)$(DISK_VHD)
 
 #flags
 ASM_FLAGS	= -I $(INCLUDE_DIR) -f elf
-C_FLAGS	= -I $(INCLUDE_DIR) -c -fno-builtin -Wall -Wunused -m32 -fno-stack-protector
+C_FLAGS	= -I $(INCLUDE_DIR) -c -fno-builtin -Wall -Wunused
 
-LDFLAGS		= -m elf_i386 -e _start -Ttext 0x80000000
+LDFLAGS		= -e _start -Ttext 0x80000000
 
 OBJS =  _start.o \
 		main.o \
@@ -83,7 +84,7 @@ LD_OBJS = $(LIB_DIR)printf.o\
 #First read here
 .PHONY: all
 
-all: compile link disk
+all: compile link img
 
 #Compile files
 compile: $(OBJS)
@@ -92,9 +93,15 @@ link: $(BIN)
 $(BIN): $(OBJS) $(LD_OBJS)
 	$(LD) $(LDFLAGS) -o $(BIN) $(OBJS) $(LD_OBJS)
 
-disk:
-	$(DD) if=$(BIN) of=$(FLAPPY_IMG) bs=512 seek=$(BIN_OFF) count=$(BIN_CNTS) conv=notrunc
+img:
+	$(DD) if=$(BIN) of=$(HD_IMG) bs=512 seek=$(BIN_OFF) count=$(BIN_CNTS) conv=notrunc
 	
+vhd:
+	$(DD) if=$(BIN) of=$(HD_VHD) bs=512 seek=$(BIN_OFF) count=$(BIN_CNTS) conv=notrunc
+	
+qemu: compile link img
+	
+vbox: compile link vhd
 
 	
 #Clean temporary files

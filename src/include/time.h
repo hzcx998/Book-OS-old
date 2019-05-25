@@ -16,4 +16,7 @@ struct time
 
 struct time *gettime(struct time *tm);
 
+
+
+
 #endif  /*_TIME_H_*/

@@ -68,6 +68,7 @@ OBJS =  string.o\
 		fsa.o\
 		pipea.o\
 		pipec.o\
+		timer.o\
 		
 #First read here
 .PHONY: all

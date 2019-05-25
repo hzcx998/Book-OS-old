@@ -94,6 +94,15 @@ void *memset16(void* src, uint16 value, uint32_t size)
 	return src;
 }
 
+void *memset32(void* src, uint32_t value, uint32_t size) 
+{
+	uint32_t* s = (uint32*)src;
+	while (size-- > 0){
+		*s++ = value;
+	}
+	return src;
+}
+
 /* ��src_��ʼ��size���ֽڸ��Ƶ�dst_ */
 void memcpy(void* dst_, const void* src_, uint32_t size) {
  

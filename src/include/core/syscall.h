@@ -81,6 +81,7 @@
 #define _NR_GUI_MOUSE_CLICK 	65
 #define _NR_GUI_KEYBOARD 	    66
 #define _NR_GUI_GET_MODIFIERS 	67
+#define _NR_GUI_BUFFER_SET   	68
 
 #define _NR_FS_LOAD_INODE		70
 
@@ -106,12 +107,19 @@
 
 #define _NR_MM_REALLOC		85
 
+#define _NR_TIMER_ALLOC		90
+#define _NR_TIMER_FREE		91
+#define _NR_TIMER_SETTM		92
+#define _NR_TIMER_CANCEL	93
+#define _NR_TIMER_OCCUR		94
+
+
 
 struct thread *thread_connect();
 struct thread *thread_getinfo(struct thread *ptr);
 
 
-#define MAX_SYS_CALLS 90
+#define MAX_SYS_CALLS 100
 
 extern sys_call_t sys_call_table[MAX_SYS_CALLS];
 

@@ -43,6 +43,7 @@ struct gui
 	void (*text)(int x, int y, char *text);
 
 	void (*buffer)(unsigned char *buffer);
+	void (*buffer_set)(int x, int y, int width, int height);
 	void (*frame)(int x, int y, int width, int height);
 
 	void (*draw)(int x1, int y1, int x2, int y2);

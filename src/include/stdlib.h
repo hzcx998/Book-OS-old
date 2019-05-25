@@ -2,6 +2,10 @@
 #define _STDLIB_H_
 #include <stdint.h>
 #include <types.h>
+#include <core/timer.h>
+#include <core/thread.h>
+
+
 void *malloc(int size);
 void free(void *ptr);
 void *realloc(void *mem_address, unsigned int newsize);
@@ -42,6 +46,11 @@ int32_t pipe_connect(uint32_t *size);
 int32_t pipe_cancel(uint32_t pipe_id);
 int32_t _pipe_cancel(uint32_t pipe_id);
 
+timer_t *talloc(void);
+void tfree(timer_t *timer);
+int settimer(timer_t *timer, uint32 timeout);
+int tcancel(timer_t *timer);
+int toccur(timer_t *timer);
 
 
 #endif

@@ -98,6 +98,7 @@ void init_syscall()
 	sys_call_table[_NR_GUI_MOUSE_CLICK] = gui.mouse_click;
 	sys_call_table[_NR_GUI_KEYBOARD] = gui.keyboard;
 	sys_call_table[_NR_GUI_GET_MODIFIERS] = gui.get_modifiers;
+	sys_call_table[_NR_GUI_BUFFER_SET] = gui.buffer_set;
 
 	sys_call_table[_NR_FS_LOAD_INODE] = fs.load_inode;
 	sys_call_table[_NR_FS_DRIVE_CONNECT] = fs.drive_connect;
@@ -123,6 +124,11 @@ void init_syscall()
 
 	sys_call_table[_NR_MM_REALLOC] = mm.usr_realloc;
 
-	
+	sys_call_table[_NR_TIMER_ALLOC] = timer_alloc;
+	sys_call_table[_NR_TIMER_FREE] = timer_free;
+	sys_call_table[_NR_TIMER_SETTM] = timer_settime;
+	sys_call_table[_NR_TIMER_CANCEL] = timer_cancel;
+	sys_call_table[_NR_TIMER_OCCUR] = timer_occur;
+
 
 }
