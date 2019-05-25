@@ -20,7 +20,7 @@ typedef struct pipe_s
     uint32_t data_size; //数据的大小
     void* data_area;    //数据区域
     struct pipe_s *next;  //下一个pipe指针
-    struct lock lock;   //管道的锁
+    struct lock* lock;   //管道的锁
 }pipe_t;
 
 /*
@@ -36,7 +36,7 @@ void init_pipe();
 void pipe_manager_dump();
 void pipe_dump(int pipe_id);
 int32_t sys_pipe_create(uint32_t size);
-int32_t sys_pipe_close(uint32_t pipe_id);
+bool sys_pipe_close(uint32_t pipe_id);
 int32_t sys_pipe_write(uint32_t pipe_id,void* data,uint32_t size);
 int32_t sys_pipe_read(uint32_t pipe_id,void* buffer);
 int32_t sys_pipe_connect(uint32_t *size);

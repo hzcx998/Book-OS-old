@@ -87,4 +87,5 @@ clean:
 	
 %.o: %.c
 	$(CC) $(C_FLAGS) -o $@ $<
-	
+%.o: %.cpp
+	$(CC) $(C_FLAGS) -o $@ $<

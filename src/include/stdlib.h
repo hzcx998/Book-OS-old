@@ -1,9 +1,10 @@
 #ifndef _STDLIB_H_
 #define _STDLIB_H_
 #include <stdint.h>
-
+#include <types.h>
 #include <core/timer.h>
 #include <core/thread.h>
+
 
 void *malloc(int size);
 void free(void *ptr);
@@ -37,7 +38,7 @@ int thread_testcancel(void);
 int thread_kill(int pid);
 
 int32_t pipe_create(uint32_t size);
-int32_t pipe_close(uint32_t pipe_id);
+bool pipe_close(uint32_t pipe_id);
 int32_t pipe_write(uint32_t pipe_id,void* data,uint32_t size);
 int32_t _pipe_write(uint32_t pipe_id,void* data,uint32_t size);
 int32_t pipe_read(uint32_t pipe_id,void* buffer);

@@ -33,7 +33,7 @@ OBJS =  _start.o\
 		switch_to.o\
 		print.o\
 		pipe.o\
-		
+		memory_disk.o\
 		
 		
 		
@@ -57,4 +57,5 @@ clean:
 	
 %.o: %.c
 	$(CC) $(C_FLAGS) -o $@ $<
-	
+%.o: %.cpp
+	$(CC) $(C_FLAGS) -o $@ $<

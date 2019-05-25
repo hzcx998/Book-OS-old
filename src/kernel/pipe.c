@@ -22,7 +22,6 @@ void init_pipe()
     //初始化基础信息
     pipe_manager.pipe_header = NULL;
     pipe_manager.pipe_number = 0;
-
     /*int pipe = sys_pipe_create(64);
 
     char buf[64];
@@ -181,7 +180,8 @@ int32_t sys_pipe_create(uint32_t size)
     }
 
     //初始化新建pipe的锁
-    lock_init(&target->lock);
+    target->lock = kernel_malloc(sizeof(struct lock));
+    lock_init(target->lock);
 
     pipe_manager.pipe_number++;
 
@@ -198,11 +198,11 @@ int32_t sys_pipe_create(uint32_t size)
 /*
 关闭一个pipe，成功返回0，失败返回-1
 */
-int32_t sys_pipe_close(uint32_t pipe_id)
+bool sys_pipe_close(uint32_t pipe_id)
 {
     //检测pipe id 是否正确
     if(pipe_manager.pipe_number <= pipe_id){
-        return -1;
+        return false;
     }
 
     /*
@@ -214,7 +214,7 @@ int32_t sys_pipe_close(uint32_t pipe_id)
     
     //如果头是空就返回
     if (p == NULL) {
-        return -1;
+        return false;
     }
 
     struct thread *cur = thread_current();
@@ -232,7 +232,7 @@ int32_t sys_pipe_close(uint32_t pipe_id)
 
         cur->pipe = NULL;
 
-        return 0;
+        return true;
     }
     pipe_t *target;
     //从第二个开始往后面找
@@ -250,11 +250,11 @@ int32_t sys_pipe_close(uint32_t pipe_id)
 
             cur->pipe = NULL;
 
-            return 0;
+            return true;
         }
         p = p->next;
     }
-    return -1;
+    return false;
 }
 /*
 往pipe写入数据

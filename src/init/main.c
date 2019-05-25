@@ -25,7 +25,7 @@ E-mail:		2323168280@qq.com
 
 #define WRITE_DISK 1
 
-#define WRITE_ID 4
+#define WRITE_ID 10
 
 #if WRITE_ID == 1
 	#define WRITE_NAME "C:/test"
@@ -34,9 +34,27 @@ E-mail:		2323168280@qq.com
 	#define WRITE_NAME "c:/bosh"
 	#define FILE_SECTORS 100
 #elif WRITE_ID == 3
+	#define WRITE_NAME "c:/infones"	   
+	#define FILE_SECTORS 600
+#elif WRITE_ID == 4
+	#define WRITE_NAME "c:/bv"
+	#define FILE_SECTORS 50
+#elif WRITE_ID == 5
+	#define WRITE_NAME "c:/test"
+	#define FILE_SECTORS 20
+#elif WRITE_ID == 6
+	#define WRITE_NAME "c:/cpptest"
+	#define FILE_SECTORS 30
+#elif WRITE_ID == 7
 	#define WRITE_NAME "c:/boex"	   
 	#define FILE_SECTORS 100
-#elif WRITE_ID == 4
+#elif WRITE_ID == 8
+	#define WRITE_NAME "c:/RVMNC"	   
+	#define FILE_SECTORS 100
+#elif WRITE_ID == 9
+	#define WRITE_NAME "c:/boex"	   
+	#define FILE_SECTORS 100
+#elif WRITE_ID == 10
 	#define WRITE_NAME "c:/invader"	   
 	#define FILE_SECTORS 50
 #endif

@@ -24,7 +24,7 @@ void init_console()
 	console.current_start_addr = 0;
 	
 	console.cursor = 80*4;
-	
+	console.lock = kernel_malloc(sizeof(struct lock));
 	console.color = COLOR_DEFAULT;
 	
 	set_cursor(console.cursor);

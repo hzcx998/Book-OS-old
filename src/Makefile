@@ -108,6 +108,7 @@ KERNEL_OBJS = $(INIT_DIR)main.o \
 		$(KERNEL_DIR)switch_to.o \
 		$(KERNEL_DIR)print.o \
 		$(KERNEL_DIR)pipe.o \
+		$(KERNEL_DIR)memory_disk.o \
 
 MM_OBJS = $(MM_DIR)mm.o \
 		$(MM_BASIC_DIR)mm.o \
