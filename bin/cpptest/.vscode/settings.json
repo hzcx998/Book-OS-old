@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "string": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "cfloat": "cpp"
     }
 }
