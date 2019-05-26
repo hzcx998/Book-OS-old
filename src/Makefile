@@ -208,6 +208,7 @@ LIB_OBJS = 	$(LIB_DIR)string.o \
 		$(LIB_DIR)pipea.o \
 		$(LIB_DIR)pipec.o \
 		$(LIB_DIR)timer.o \
+		$(LIB_DIR)ctype.o \
 		
 #objs
 OBJS =  $(KERNEL_OBJS) $(ARCH_OBJS) $(FS_OBJS) $(GUI_OBJS) $(DEVICE_OBJS) \
