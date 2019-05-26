@@ -29,4 +29,9 @@ typedef          short int16;
 typedef unsigned char  uint8;
 typedef          char  int8;
 
+
+#define UINT32_MAX 0xffffffff
+#define UINT8_MAX 0xff
+
+
 #endif
