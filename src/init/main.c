@@ -58,8 +58,8 @@ E-mail:		2323168280@qq.com
 	#define WRITE_NAME "c:/invader"	   
 	#define FILE_SECTORS 50
 #elif WRITE_ID == 11
-	#define WRITE_NAME "x:/spr"	   
-	#define FILE_SECTORS 600	
+	#define WRITE_NAME "c:/boeditor"	   
+	#define FILE_SECTORS 50	
 #endif
 
 

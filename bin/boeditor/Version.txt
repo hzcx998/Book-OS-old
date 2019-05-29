@@ -1,0 +1,10 @@
+[21:57 2019/5/29]
+	-v0.3
+	change name to beditor and replant to window
+[2019/2/19]
+	-v0.2	
+	This version£¬we can get screen width and height.
+[2019/1/7]
+	-v0.1
+	This version£¬We can write char and move cursor.At first line, we assume it as file path name. The second line is text.
+boeditor >>> book os editor
