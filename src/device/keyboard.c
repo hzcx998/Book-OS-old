@@ -372,7 +372,7 @@ void key_char_process(uint32_t key)
 						thread_graphic_exit(current_vidbuf->thread);
 					}
 				}*/
-				//put_key( F4);
+				put_key( F4);
 				break;	
 			case F5:
 				put_key( F5);

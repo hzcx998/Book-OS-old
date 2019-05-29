@@ -208,7 +208,7 @@ static void myKeyboard(int key, int x, int y)
 	if(key == GUI_KEY_F4){
 		free(padInfo.charBuffer);
 		free(fileInfo.buffer);
-		graphic_exit();
+		gui_window_close();
 		exit(1);
 	}else if(key == GUI_KEY_UP){
 		//擦去光标和字符
