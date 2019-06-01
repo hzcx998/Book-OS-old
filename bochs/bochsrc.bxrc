@@ -1,5 +1,5 @@
 ###############################################################
-# bochsrc.txt file for DLX Linux disk image.
+# bochsrc.txt file for BookOS disk image.
 ###############################################################
 
 # how much memory the emulated machine will have
@@ -32,7 +32,7 @@ boot: a
 # where do we send log messages?
 log: ../bochs/bochsout.txt
 
-# disable the mouse, since DLX is text only
+# enable the mouse
 mouse: enabled=0
 
 # enable key mapping, using US layout as default.
