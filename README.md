@@ -13,7 +13,7 @@ ScreenShot:
 ![image](https://github.com/huzichengdevelop/Book-OS/blob/master/screenshoot/start.jpg)  
 ![image](https://github.com/huzichengdevelop/Book-OS/blob/master/screenshoot/desktop.jpg)  
 
-mkae		-compile, link  
+make		-compile, link  
 make all 	-compile, link and run os in vm  
 make qemu	-run in qemu  
 make bochs	-run in bochs  
