@@ -38,7 +38,7 @@ int32_t sys_reboot(int reboot_type)
 
 void do_reboot(int reboot_type)
 {
-	/*不能再switch语句中申请变量，所以放到外面来*/
+	/*不能在switch语句中申请变量，所以放到外面来*/
 	uint8_t reboot_code;
 	uint8_t cf9;
 	struct gate *idt;
