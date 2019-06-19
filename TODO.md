@@ -1,7 +1,7 @@
 # What should you do will be there  
 ----  
 For example:  
-thing: to Update kernel's process
+thing: to Update kernel's process  
 author: Jason Hu  
 time: 2019.6.19  
 status: not finish  
