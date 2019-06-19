@@ -1,0 +1,48 @@
+/*《送别》作曲：约翰·奥德威 作词：李叔同 翻译：刘东旭 */
+
+$E"EUC";							T120L4O4
+
+$K"Out the station,";	G2 E&G>C2
+$K"the old roadside.";	<A2> C2< G2
+$K"With green grass and blue sky."; G2 C&DED&CD2Q8
+$K"Willow and whistling oldly";	G2 
+$K"by wind tonight"; E&G>C. <B A2> C< G2Q8
+$K"and the far hill redly"; G2 
+$K"by old sunshine."; D&EFQ4F.<B>C2Q8
+$K"In the word's end, ";  A >C2<Q8
+$K"the ocean center,"; B A&B>C2<Q8
+$K"my friends and lover";  A&B2 >C&<A
+$K"never by never.";  A&GE&CD2Q8
+$K"Oh,my brother,";  G 
+$K"drink the glass of liquor,"; E&G >C.<B A>C<G2Q8
+$K"end of the last pleasure"; G 
+$K"is long winter.";  D&EF.F<B>C2Q8
+R1
+
+$K"Out the station,";	G2 E&G>C2
+$K"the old roadside.";	<A2> C2< G2
+$K"With green grass and blue sky."; G2 C&DED&CD2Q8
+$K"Willow and whistling oldly";	G2 
+$K"by wind tonight"; E&G>C. <B A2> C< G2Q8
+$K"and the far hill redly"; G2 
+$K"by old sunshine."; D&EFQ4F.<B>C2Q8
+$K"In the word's end, ";  A >C2<Q8
+$K"the ocean center,"; B A&B>C2<Q8
+$K"my friends and lover";  A&B2 >C&<A
+$K"never by never.";  A&GE&CD2Q8
+$K"Oh,my brother,";  G 
+$K"drink the glass of liquor,"; E&G >C.<B A>C<G2Q8
+$K"end of the last pleasure"; G 
+$K"is long winter.";  D&EF.F<B>C2Q8
+R1 R1
+
+/*
+1 C
+2 D
+3 E
+4 F
+5 G
+6 A
+7 B
+1 C
+*/
