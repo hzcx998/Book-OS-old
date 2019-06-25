@@ -19,3 +19,8 @@ make qemu	-run in qemu
 make bochs	-run in bochs  
 make bochsdbg	-run in bochsdbg  
 make clean	-clean all .o, .bin, .elf file  
+
+# Our ideal goal
+We can use this OS on our computer！
+We can use IDE to make application on this OS!
+We can use this OS to compile this OS!
