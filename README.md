@@ -1,12 +1,12 @@
 # Book-OS
-Book is a 32-bit operating system based on x86 platform. 
+Book is a 32-bit operating system based on x86 platform.  
 Book 是一个基于x86平台的32位操作系统。  
-Enjoy it! 
+Enjoy it!  
 尽情享受吧！  
-E-mail: 2323168280@qq.com  
-邮箱: 2323168280@qq.com  
-Website: www.book-os.org  
-官方网址: www.book-os.org  
+邮箱 E-mail: 2323168280@qq.com  
+
+官网 Website: www.book-os.org  
+
 版本发布 Update:  
     v0.4 2019/5/13  
     v0.39 2019/5/2  
