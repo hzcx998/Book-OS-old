@@ -35,3 +35,7 @@ make clean	-clean all .o, .bin, .elf file（删除所有产生的临时文件）
 We can use this OS on our computer！  
 We can use IDE to make application on this OS!  
 We can use this OS to compile this OS!  
+
+# 号外！！！Surprise!!!  
+新的内核代号为X，仓库地址是：https://github.com/huzichengdevelop/Book-OS-X  
+The new kernel's code is X，github site is：https://github.com/huzichengdevelop/Book-OS-X  
