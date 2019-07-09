@@ -37,5 +37,5 @@ We can use IDE to make application on this OS!
 We can use this OS to compile this OS!  
 
 # 号外！！！Surprise!!!  
-新的内核代号为X，仓库地址是：https://github.com/huzichengdevelop/Book-OS-X  
-The new kernel's code is X，github site is：https://github.com/huzichengdevelop/Book-OS-X  
+新的内核代号为X，仓库地址是：https://github.com/huzichengdevelop/XBook  
+The new kernel's code is X，github site is：https://github.com/huzichengdevelop/XBook  
